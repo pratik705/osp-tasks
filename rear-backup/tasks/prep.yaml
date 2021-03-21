@@ -10,4 +10,3 @@
     path: "{{ nfs.dst }}"
     state: "mounted"
     src: "{{ nfs.share }}"
-
