@@ -10,3 +10,10 @@
     path: "{{ nfs.dst }}"
     state: "mounted"
     src: "{{ nfs.share }}"
+
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ packages }}"
