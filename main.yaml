@@ -1,0 +1,6 @@
+---
+- name: Deploy rear on the overcloud nodes
+  hosts: test
+  user: root
+  roles:
+    - rear-backup

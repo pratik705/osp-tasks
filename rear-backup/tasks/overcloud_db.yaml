@@ -1,0 +1,6 @@
+---
+- name: Create directory to backup overcloud DB
+  file:
+    path: "{{ nfs.dst }}"/overcloud_DB
+    state: directory
+    mode: "775"

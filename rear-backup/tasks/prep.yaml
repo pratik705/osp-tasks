@@ -1,0 +1,13 @@
+---
+- name: Create NFS directory
+  file:
+    path: "{{ nfs.dst }}"
+    state: directory
+    mode: "775"
+
+- name: Mount NFS share
+  mount:
+    path: "{{ nfs.dst }}"
+    state: "mounted"
+    src: "{{ nfs.share }}"
+
