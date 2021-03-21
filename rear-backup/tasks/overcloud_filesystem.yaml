@@ -1,0 +1,13 @@
+- name: Create a new backup directory
+  file:
+    path: "{{ nfs.dst }}/overcloud_FS"
+    state: directory
+    mode: "775"
+
+- name: Backup files and directories
+  shell: |
+
+
+
+  ignore_errors: yes
+  delay: 60
