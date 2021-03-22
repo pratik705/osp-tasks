@@ -8,3 +8,20 @@ packages:
   - rear
   - genisoimage
   - nfs-utils
+
+# Filesystem
+backup_dirs:
+  - /etc
+  - /var/lib/config-data/
+  - /var/lib/kolla/
+  - /var/lib/heat-config
+  - /var/lib/heat-cfntools
+  - /usr/libexec/os-apply-config/
+  - /home/heat-admin
+  - /root
+backup_excludes:
+  - /var/lib/nova/instances
+  - /var/lib/docker/
+  - /var/mnt/
+  - /var/lib/glance/
+  - /srv/node
