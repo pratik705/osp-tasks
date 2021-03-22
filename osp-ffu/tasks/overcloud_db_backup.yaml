@@ -4,27 +4,39 @@
     path: "{{ nfs.dst }}/overcloud_DB"
     state: directory
     mode: "775"
+  tags:
+    - overcloud_db
 
 - name: Fetch mysql root password
   command:
     cmd: "/bin/hiera -c /etc/puppet/hiera.yaml mysql::server::root_password"
   register: mysql_root_password_cmd_output
+  tags:
+    - overcloud_db
 
 - name: Convert the database root password if unknown
   set_fact:
     mysql_root_password: "{{ mysql_root_password_cmd_output.stdout_lines[0] }}"
+  tags:
+    - overcloud_db
 
 - name: Create MySQL backup script
   template:
     src: backup_mysql.sh.j2
     dest: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
     mode: u+rwx
+  tags:
+    - overcloud_db
 
 - name: Run the MySQL backup script
   command: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
+  tags:
+    - overcloud_db
 
 - name: Archive the OpenStack databases
   shell: |
     /bin/tar --ignore-failed-read --xattrs \
       -zcf {{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.tar \
       {{ nfs.dst }}/overcloud_DB/*.sql
+  tags:
+    - overcloud_db
