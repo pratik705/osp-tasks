@@ -4,12 +4,16 @@
     path: "{{ nfs.dst }}"
     state: directory
     mode: "775"
+  tags:
+    - prep
 
 - name: Mount NFS share
   mount:
     path: "{{ nfs.dst }}"
     state: "mounted"
     src: "{{ nfs.share }}"
+  tags:
+    - prep
 
 - name: Install required packages
   package:
@@ -17,3 +21,5 @@
     state: present
   loop:
     - "{{ packages }}"
+  tags:
+    - prep

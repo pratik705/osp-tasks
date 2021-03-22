@@ -1,5 +1,15 @@
 ---
+- name: Prep the nodes
+  include_tasks: prep.yaml
+  tags:
+    - prep
+
 - name: Backup overcloud DB
   include_tasks: overcloud_db_backup.yaml
   tags:
     - overcloud_db
+
+- name: Backup overcloud FS
+  include_tasks: overcloud_filesystem_backup.yaml
+  tags:
+    - overcloud_fs

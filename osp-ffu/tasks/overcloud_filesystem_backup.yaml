@@ -3,11 +3,20 @@
     path: "{{ nfs.dst }}/overcloud_FS"
     state: directory
     mode: "775"
+  tags:
+    - overcloud_fs
 
 - name: Backup files and directories
   shell: |
-
-
-
+    /bin/tar --ignore-failed-read --xattrs \
+       -zcf "{{ nfs.dst }}/overcloud_FS/{{ inventory_hostname }}-{{ hostvars[inventory_hostname]['ansible_date_time']['iso8601_basic_short'] }}.tar.gz" \
+       {% if backup_excludes is defined %}
+       {% for backup_exclude in backup_excludes %}
+       --exclude {{ backup_exclude }} \
+       {% endfor %}
+       {% endif %}
+       {{' '.join(backup_dirs) }}
   ignore_errors: yes
   delay: 60
+  tags:
+    - overcloud_fs
