@@ -11,6 +11,7 @@
   mount:
     path: "{{ nfs.dst }}"
     state: "mounted"
+    fstype: "nfs"
     src: "{{ nfs.share }}"
   tags:
     - prep

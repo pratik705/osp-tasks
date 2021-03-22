@@ -12,4 +12,4 @@
 - name: Backup overcloud FS
   include_tasks: overcloud_filesystem_backup.yaml
   tags:
-
+    - overcloud_fs
