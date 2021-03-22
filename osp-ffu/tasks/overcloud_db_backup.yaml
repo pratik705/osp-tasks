@@ -36,7 +36,7 @@
 - name: Archive the OpenStack databases
   shell: |
     /bin/tar --ignore-failed-read --xattrs \
-      -zcf {{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.tar \
+      -zcf {{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.tar \
       {{ nfs.dst }}/overcloud_DB/*.sql
   tags:
     - overcloud_db

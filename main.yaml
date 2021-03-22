@@ -1,6 +1,7 @@
 ---
 - name: Deploy rear on the overcloud nodes
-  hosts: test
-  user: root
+  hosts: controller01
+  user: heat-admin
   roles:
-    - rear-backup
+    - osp-ffu
+

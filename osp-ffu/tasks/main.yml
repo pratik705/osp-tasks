@@ -1,6 +1,5 @@
 ---
-
-
-
-
-
+- name: Backup overcloud DB
+  include_tasks: overcloud_db_backup.yaml
+  tags:
+    - overcloud_db
