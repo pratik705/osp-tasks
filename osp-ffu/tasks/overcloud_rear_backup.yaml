@@ -1,7 +1,6 @@
 - name: Set cluster offline
   pacemaker_cluster:
     state: offline
-    node: all
   tags:
     - rear_backup
 
@@ -12,32 +11,35 @@
   tags:
     - rear_backup
 
-- name: Stop all containers
-  docker_container:
-    name: "{{ item }}"
-    state: stopped
-  loop:
-    - "{{ docker_ps.stdout_lines }}"
-  tags:
-    - rear_backup
-
-- name: Create rear config file
-  template:
-    src: rear_config.j2
-    dest: "/etc/rear/local.conf"
-    mode: u+rwx
-  tags:
-    - rear_backup
-
-- name: Execute rear to backup
-  command:
-    cmd: "rear -d -v mkbackup"
-  register: rear_execution
-  tags:
-    - rear_backup
-
-- name: rear backup output
+- name: list containers
   debug:
-    msg: "{{ rear_execution.stdout }}"
-  tags:
-    - rear_backup
+    msg: "{{ docker_ps }}"
+#- name: Stop all containers
+#  docker_container:
+#    name: "{{ item }}"
+#    state: stopped
+#  loop:
+#    - "{{ docker_ps.stdout_lines }}"
+#  tags:
+#    - rear_backup
+#
+#- name: Create rear config file
+#  template:
+#    src: rear_config.j2
+#    dest: "/etc/rear/local.conf"
+#    mode: u+rwx
+#  tags:
+#    - rear_backup
+#
+#- name: Execute rear to backup
+#  command:
+#    cmd: "rear -d -v mkbackup"
+#  register: rear_execution
+#  tags:
+#    - rear_backup
+#
+#- name: rear backup output
+#  debug:
+#    msg: "{{ rear_execution.stdout }}"
+#  tags:
+#    - rear_backup
