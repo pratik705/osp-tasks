@@ -4,19 +4,8 @@
   tags:
     - rear_backup
 
-- name: List all containers
-  command:
-    cmd: "docker ps -q"
-  register: docker_ps
-  tags:
-    - rear_backup
-
 - name: Stop all containers
-  docker_container:
-    name: "{{ item }}"
-    state: stopped
-  loop:
-    - "{{ docker_ps.stdout_lines }}"
+  shell: 'docker ps -q | xargs docker stop'
   tags:
     - rear_backup
 
