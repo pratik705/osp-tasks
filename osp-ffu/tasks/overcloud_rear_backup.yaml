@@ -35,6 +35,6 @@
 - name: restart docker
   service:
     name: docker
-    state: started
+    state: restarted    
   tags:
     - rear_backup
