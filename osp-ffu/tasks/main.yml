@@ -13,3 +13,8 @@
   include_tasks: overcloud_filesystem_backup.yaml
   tags:
     - overcloud_fs
+
+- name: Configure Rear backup
+  include_tasks: overcloud_rear_backup.yaml
+  tags:
+    - rear_backup

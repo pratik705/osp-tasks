@@ -1,5 +1,8 @@
 ---
-# vars file for rear-backup
+# vars file for OSP FFU backup
+
+controller_primary: controller01
+
 nfs:
   share: 172.26.235.10:/rhosp_virt/ffu_backup
   dst: /ctl_plane_backups
