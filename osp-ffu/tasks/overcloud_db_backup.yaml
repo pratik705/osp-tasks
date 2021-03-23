@@ -4,7 +4,7 @@
     path: "{{ nfs.dst }}/overcloud_DB"
     state: directory
     mode: "775"
-  when: primary_controller == ansible_hostname
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
@@ -12,12 +12,14 @@
   command:
     cmd: "/bin/hiera -c /etc/puppet/hiera.yaml mysql::server::root_password"
   register: mysql_root_password_cmd_output
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
 - name: Convert the database root password if unknown
   set_fact:
     mysql_root_password: "{{ mysql_root_password_cmd_output.stdout_lines[0] }}"
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
@@ -26,11 +28,13 @@
     src: backup_mysql.sh.j2
     dest: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
     mode: u+rwx
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
 - name: Run the MySQL backup script
   command: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
@@ -39,5 +43,6 @@
     /bin/tar --ignore-failed-read --xattrs \
       -zcf {{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.tar \
       {{ nfs.dst }}/overcloud_DB/*.sql
+  when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
