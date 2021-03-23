@@ -5,3 +5,10 @@
   roles:
     - osp-ffu
 
+- name: overcloud stack operations
+  hosts: undercloud
+  collections:
+    - tripleo.operator
+  roles:
+    - tripleo-stack
+
