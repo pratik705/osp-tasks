@@ -31,3 +31,10 @@
     msg: "{{ rear_execution.stdout }}"
   tags:
     - rear_backup
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted    
+  tags:
+    - rear_backup
