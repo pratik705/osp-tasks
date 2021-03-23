@@ -6,6 +6,8 @@
 
 - name: Stop all containers
   shell: 'docker ps -q | xargs docker stop'
+  register: docker_ps
+  failed_when: "docker_ps.rc != 123"
   tags:
     - rear_backup
 
