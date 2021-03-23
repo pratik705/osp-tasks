@@ -4,6 +4,7 @@
     path: "{{ nfs.dst }}/overcloud_DB"
     state: directory
     mode: "775"
+  when: primary_controller == ansible_hostname
   tags:
     - overcloud_db
 
