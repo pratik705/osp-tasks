@@ -1,14 +1,17 @@
 ---
 - name: Deploy rear on the overcloud nodes
-  hosts: controller01
+  hosts: Controller
   user: heat-admin
   roles:
     - osp-ffu
 
-- name: overcloud stack operations
-  hosts: undercloud
-  collections:
-    - tripleo.operator
-  roles:
-    - tripleo-stack
+#- name: overcloud stack operations
+#  hosts: undercloud
+#  collections:
+#    - tripleo.operator
+#  roles:
+#    - tripleo-stack
+#  tags:
+#    - never
+#    - tripleo-stack-deploy
 
