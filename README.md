@@ -1,4 +1,4 @@
-# OSP13_16
+# osp-tasks
 
 ## Update the variables as per your requirement
 - vars/overcloud-backup.yaml
