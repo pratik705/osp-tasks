@@ -41,8 +41,22 @@
 - name: Archive the OpenStack databases
   shell: |
     /bin/tar --ignore-failed-read --xattrs \
-      -zcf {{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.tar \
+      -zcf {{ nfs.dst }}/overcloud_DB/openstack-overcloud-backup-mysql-{{ hostvars[inventory_hostname]['ansible_date_time']['iso8601_basic_short'] }}.tar \
       {{ nfs.dst }}/overcloud_DB/*.sql
   when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
+
+- name: Remove temp files
+  file:
+    name: "{{ item }}"
+    state: absent
+  when: ansible_hostname == primary_controller
+  loop:
+    - "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
+    - "{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql-grants.sql"
+    - "{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.sql"
+  tags:
+    - overcloud_db
+
+
