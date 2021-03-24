@@ -1,6 +1,12 @@
+- name: Prep the controller nodes
+  import_tasks: prep.yaml
+  tags:
+    - rear_backup
+
 - name: Set cluster offline
   pacemaker_cluster:
     state: offline
+  any_errors_fatal: true
   tags:
     - rear_backup
 

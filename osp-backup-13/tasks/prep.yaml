@@ -28,5 +28,7 @@
 - name: Disable stonith
   shell: "pcs property set stonith-enabled=false"
   when: ansible_hostname == primary_controller
+  register: disable_stonith
+  any_errors_fatal: true
   tags:
     - prep
