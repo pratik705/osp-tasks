@@ -24,3 +24,9 @@
     - "{{ packages }}"
   tags:
     - prep
+
+- name: Disable stonith
+  shell: "pcs property set stonith-enabled=false"
+  when: ansible_hostname == primary_controller
+  tags:
+    - prep

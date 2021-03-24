@@ -40,3 +40,9 @@
     state: restarted    
   tags:
     - rear_backup
+
+- name: Set cluster online
+  pacemaker_cluster:
+    state: online
+  tags:
+    - rear_backup
