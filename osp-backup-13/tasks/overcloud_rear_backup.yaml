@@ -1,7 +1,9 @@
 - name: Prep the controller nodes
-  import_tasks: prep.yaml
+  include_tasks: prep.yaml
+  when: disable_prep == false
   tags:
     - rear_backup
+  
 
 - name: Set cluster offline
   pacemaker_cluster:

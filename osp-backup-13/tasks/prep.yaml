@@ -24,6 +24,7 @@
     - "{{ packages }}"
   tags:
     - prep
+    - rear_backup
 
 - name: Disable stonith
   shell: "pcs property set stonith-enabled=false"
@@ -32,3 +33,11 @@
   any_errors_fatal: true
   tags:
     - prep
+    - rear_backup
+
+- name: Disable prep
+  set_fact:
+    disable_prep: true
+  tags:
+    - prep
+    - rear_backup

@@ -1,6 +1,7 @@
 ---
 # vars file for OSP overcloud backup
 
+disable_prep: false
 ## Controller hostname to backup the database
 primary_controller: 716093-lab1-controller01
 
