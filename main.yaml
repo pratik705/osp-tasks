@@ -3,7 +3,7 @@
   hosts: Controller
   user: heat-admin
   roles:
-    - osp-ffu
+    - osp-backup-13
 
 #- name: overcloud stack operations
 #  hosts: undercloud

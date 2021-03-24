@@ -1,5 +1,5 @@
 ---
-# vars file for OSP FFU backup
+# vars file for OSP overcloud backup
 
 primary_controller: 716093-lab1-controller01
 
