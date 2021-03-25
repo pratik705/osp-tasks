@@ -1,7 +1,7 @@
 ---
 - name: Create NFS directory
   file:
-    path: "{{ nfs.dst }}"
+    path: "{{ backup_dst }}"
     state: directory
     mode: "775"
   tags:
@@ -9,7 +9,7 @@
 
 - name: Mount NFS share
   mount:
-    path: "{{ nfs.dst }}"
+    path: "{{ backup_dst }}"
     state: "mounted"
     fstype: "nfs"
     src: "{{ nfs.share }}"

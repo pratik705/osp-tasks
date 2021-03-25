@@ -1,8 +1,9 @@
 ---
 - name: Create directory to backup overcloud DB
   file:
-    path: "{{ nfs.dst }}/overcloud_DB"
+    path: "{{ backup_dst }}/overcloud_DB"
     state: directory
+    recurse: true
     mode: "775"
   when: ansible_hostname == primary_controller
   tags:
@@ -26,14 +27,14 @@
 - name: Create MySQL backup script
   template:
     src: backup_mysql.sh.j2
-    dest: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
+    dest: "{{ backup_dst }}/overcloud_DB/backup_mysql.sh"
     mode: u+rwx
   when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
 
 - name: Run the MySQL backup script
-  command: "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
+  command: "{{ backup_dst }}/overcloud_DB/backup_mysql.sh"
   when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
@@ -41,8 +42,8 @@
 - name: Archive the OpenStack databases
   shell: |
     /bin/tar --ignore-failed-read --xattrs \
-      -zcf {{ nfs.dst }}/overcloud_DB/openstack-overcloud-backup-mysql-{{ hostvars[inventory_hostname]['ansible_date_time']['iso8601_basic_short'] }}.tar \
-      {{ nfs.dst }}/overcloud_DB/*.sql
+      -zcf {{ backup_dst }}/overcloud_DB/openstack-overcloud-backup-mysql-{{ hostvars[inventory_hostname]['ansible_date_time']['iso8601_basic_short'] }}.tar \
+      {{ backup_dst }}/overcloud_DB/*.sql
   when: ansible_hostname == primary_controller
   tags:
     - overcloud_db
@@ -53,10 +54,8 @@
     state: absent
   when: ansible_hostname == primary_controller
   loop:
-    - "{{ nfs.dst }}/overcloud_DB/backup_mysql.sh"
-    - "{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql-grants.sql"
-    - "{{ nfs.dst }}/overcloud_DB/openstack-backup-mysql.sql"
+    - "{{ backup_dst }}/overcloud_DB/backup_mysql.sh"
+    - "{{ backup_dst }}/overcloud_DB/openstack-backup-mysql-grants.sql"
+    - "{{ backup_dst }}/overcloud_DB/openstack-backup-mysql.sql"
   tags:
     - overcloud_db
-
-

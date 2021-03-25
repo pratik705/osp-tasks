@@ -8,7 +8,9 @@ primary_controller: 716093-lab1-controller01
 ## NFS share details to store the backup
 nfs:
   share: 172.26.235.10:/rhosp_virt/ffu_backup
-  dst: /ctl_plane_backups
+
+## Backup destination directory
+backup_dst: /ctl_plane_backups
 
 ## Packages to install
 ## Required if using "REAR" tool for backup
