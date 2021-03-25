@@ -3,14 +3,14 @@
 
 disable_prep: false
 ## Controller hostname to backup the database
-primary_controller: 716093-lab1-controller01
+primary_controller: <controller_hostname>
 
 ## NFS share details to store the backup
 nfs:
-  share: 172.26.235.10:/rhosp_virt/ffu_backup
+  share: <NFS server IP>:<NFS share>
 
 ## Backup destination directory
-backup_dst: /ctl_plane_backups
+backup_dst: <backup destination directory>
 
 ## Packages to install
 ## Required if using "REAR" tool for backup
