@@ -4,14 +4,3 @@
   user: heat-admin
   roles:
     - osp-backup-13
-
-#- name: overcloud stack operations
-#  hosts: undercloud
-#  collections:
-#    - tripleo.operator
-#  roles:
-#    - tripleo-stack
-#  tags:
-#    - never
-#    - tripleo-stack-deploy
-
