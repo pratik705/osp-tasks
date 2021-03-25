@@ -1,3 +1,9 @@
+- name: Prep the controller nodes
+  include_tasks: prep.yaml
+  when: disable_prep == false
+  tags:
+    - overcloud_fs
+
 - name: Create a new backup directory
   file:
     path: "{{ nfs.dst }}/overcloud_FS"
@@ -18,5 +24,13 @@
        {{' '.join(backup_dirs) }}
   ignore_errors: yes
   delay: 60
+  tags:
+    - overcloud_fs
+
+- name: Enable stonith
+  shell: "pcs property set stonith-enabled=true"
+  any_errors_fatal: true
+  run_once: true
+  when: disable_prep == false
   tags:
     - overcloud_fs

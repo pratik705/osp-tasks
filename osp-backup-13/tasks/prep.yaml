@@ -23,17 +23,15 @@
   loop:
     - "{{ packages }}"
   tags:
-    - prep
     - rear_backup
 
 - name: Disable stonith
   shell: "pcs property set stonith-enabled=false"
-  when: ansible_hostname == primary_controller
-  register: disable_stonith
   any_errors_fatal: true
+  run_once: true
   tags:
-    - prep
     - rear_backup
+    - overcloud_fs
 
 - name: Disable prep
   set_fact:
@@ -41,3 +39,4 @@
   tags:
     - prep
     - rear_backup
+    - overcloud_fs

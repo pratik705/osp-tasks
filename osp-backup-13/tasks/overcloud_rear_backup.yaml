@@ -3,7 +3,6 @@
   when: disable_prep == false
   tags:
     - rear_backup
-  
 
 - name: Set cluster offline
   pacemaker_cluster:
@@ -52,5 +51,12 @@
 - name: Set cluster online
   pacemaker_cluster:
     state: online
+  tags:
+    - rear_backup
+
+- name: Enable stonith
+  shell: "pcs property set stonith-enabled=true"
+  any_errors_fatal: true
+  run_once: true
   tags:
     - rear_backup
